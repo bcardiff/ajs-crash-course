@@ -1,41 +1,8 @@
 :javascript
   angular
-    .module('MyApp', ['wu.staticGmap'])
-    .directive('maLocation', function(){
-      return {
-        restrict: 'E',
-        transclude: true,
-        templateUrl: 'maLocation.html',
-        scope: {
-          lat: '=',
-          lng: '='
-        },
-        link: function(scope, element, attrs) {
-          scope.$watch('[lat, lng]', function(){
-            scope.gmap_options = { color: 'red', label: 'X', coords: [scope.lat, scope.lng] };
-          });
-        }
-      }
-    })
+    .module('MyApp', ['ui.bootstrap'])
 
 
-%div(ng-app="MyApp" ng-init="slat=-34;slng=-58;" )
-  %script(type='text/ng-template' id='maLocation.html')
-    .well
-      %static-gmap(size="96x96" sensor="false" zoom="4" markers="gmap_options")
-      %span(ng-transclude)
-
-  %ma-location(lat="33" lng="44")
-    Welcome to Irak
-
-  %ma-location(lat="-34" lng="-58")
-    Welcome to Buenos Aires
-
-
-  %div
-    {{slat}} - {{slng}}
-    %ma-location(lat="slat" lng="slng")
-    %button(ng-click='slat=slat+10') North
-    %button(ng-click='slat=slat-10') South
-    %button(ng-click='slng=slng+10') East
-    %button(ng-click='slng=slng-10') West
+%div(ng-app="MyApp")
+  %rating(ng-model="my_rate")
+  you rate {{my_rate}}

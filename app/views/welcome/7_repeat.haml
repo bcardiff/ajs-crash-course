@@ -1,0 +1,29 @@
+:javascript
+  angular
+    .module('MyApp', ['ui.bootstrap'])
+    .controller('MoviesController', function($scope){
+      $scope.movies = [
+        {title: 'Legally Blonde', rating: 2},
+        {title: 'Confession of a Shopaholic', rating: 1},
+        {title: 'Lord of the Rings', rating: 4},
+        {title: 'Pride and Prejudice', rating: 5},
+        {title: 'Atonement'},
+      ];
+    });
+
+%div(ng-app="MyApp")
+  %div(ng-controller="MoviesController")
+    %b $scope.movies
+    %pre {{movies}}
+
+    %h1 The movies
+    %ul(ng-repeat="movie in movies")
+      {{movie.title}}
+      -
+      %rating(ng-model="movie.rating")
+
+    %h1 Top movies
+    %ul(ng-repeat="movie in movies | filter : { rating : 5 } | orderBy:'title'")
+      {{movie.title}}
+      -
+      %rating(ng-model="movie.rating")

@@ -14,6 +14,6 @@
 //= require jquery-ujs
 //= require turbolinks
 //= require angular
-//= require bootstrap-sass-official
+//= require angular-bootstrap
 //= require angular-google-staticmaps
 //= require_tree .

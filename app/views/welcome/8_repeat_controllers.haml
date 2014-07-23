@@ -1,0 +1,34 @@
+:javascript
+  angular
+    .module('MyApp', ['ui.bootstrap'])
+    .controller('MoviesController', function($scope, $log){
+      $scope.movies = [
+        {title: 'Legally Blonde', rating: 2},
+        {title: 'Confession of a Shopaholic', rating: 1},
+        {title: 'Lord of the Rings', rating: 4},
+        {title: 'Pride and Prejudice', rating: 5},
+        {title: 'Atonement'},
+      ];
+
+      $scope.$watch('movies',function(newValue, oldValue){
+        if (newValue !== oldValue) {
+          $log.log('MoviesController something change');
+        }
+      },true);
+    })
+    .controller('MovieController', function($scope, $log){
+      $scope.$watch('movie.rating', function(newValue, oldValue){
+        // skip initial watch
+        if (newValue !== oldValue) {
+          $log.log('MovieController rating changed ', newValue, $scope.movie);
+        }
+      })
+    });
+
+%div(ng-app="MyApp")
+  %div(ng-controller="MoviesController")
+    %h1 The movies
+    %ul(ng-repeat="movie in movies" ng-controller="MovieController")
+      {{movie.title}}
+      -
+      %rating(ng-model="movie.rating")
