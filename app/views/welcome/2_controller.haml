@@ -1,0 +1,18 @@
+:javascript
+  function CopyController($scope) {
+    $scope.title = 'My title'
+    $scope.savedTitle = ''
+    $scope.save = function() {
+      if ($scope.title != '') {
+        $scope.savedTitle = $scope.title;
+        $scope.title = ''
+      }
+    }
+  }
+
+%div(ng-app)
+  %div(ng-controller="CopyController")
+    %input(type="text" ng-model="title")
+    %button(ng-click='save()') Save
+    %p(ng-show="savedTitle") the saved title is {{savedTitle}}.
+

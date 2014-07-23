@@ -4,6 +4,7 @@
     "jquery-ujs": "latest",
     "bootstrap-sass-official": "latest",
     "angular": "latest",
-    "angular-resource": "latest"
+    "angular-resource": "latest",
+    "angular-google-staticmaps": "latest"
   }
 }
