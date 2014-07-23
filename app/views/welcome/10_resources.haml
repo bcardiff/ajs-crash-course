@@ -1,0 +1,63 @@
+:javascript
+  angular
+    .module('MyApp', ['ui.bootstrap', 'ngResource'])
+    .controller('MoviesController', function($scope, Movie){
+      $scope.loading_movies = true;
+      $scope.movies = Movie.query(function(){
+        $scope.loading_movies = false;
+      });
+
+      $scope.addMovie = function() {
+        if ($scope.newTitle.length == 0) return;
+
+        var movie = new Movie({
+          title: $scope.newTitle,
+          rating: $scope.newRating
+        });
+        $scope.movies.push(movie);
+        movie.$save();
+
+        $scope.newTitle = null;
+        $scope.newRating = null;
+      };
+    })
+    .controller('MovieController', function($scope){
+      $scope.$watch('movie.rating', function(newValue, oldValue){
+        // skip initial watch
+        if (newValue !== oldValue) {
+          $scope.saving = true;
+          $scope.movie.$save(function(){
+            $scope.saving = false;
+          });
+        }
+      })
+    })
+    .provider('Movie', function() {
+      this.$get = ['$resource', function($resource) {
+        return $resource('/movies/:id', {id:'@id'}, {});
+      }];
+    });
+
+%div(ng-app="MyApp")
+  %div(ng-controller="MoviesController")
+    %h1 The movies
+    %ul(ng-show="loading_movies")
+      %li Loading movies...
+    %ul(ng-hide="loading_movies")
+      %li(ng-repeat="movie in movies" ng-controller="MovieController")
+        {{movie.title}}
+        %span.small ({{movie.id}})
+        -
+        %rating(ng-model="movie.rating")
+        %span(ng-show="saving || movie.id === undefined") saving
+
+      %li
+        %form(ng-submit="addMovie()")
+          %input(type="text" ng-model="newTitle")
+          %rating(ng-model="newRating")
+          %button(type="submit") Create
+
+
+    %div(style="bottom: 0; position: absolute; width: 100%;")
+      %b $scope.movies
+      %pre {{movies}}

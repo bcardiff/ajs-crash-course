@@ -1,0 +1,32 @@
+:javascript
+  angular
+    .module('MyApp', [])
+    .controller('CardsController', function($scope) {
+      $scope.cards = [
+        {kind:'a', title:'A'},
+        {kind:'a', title:'B'},
+        {kind:'b', score:1},
+        {kind:'b', score:2},
+        {kind:'b', score:3},
+      ];
+
+      $scope.content_template_for = function(card) {
+        return 'card_' + card.kind + '.html'
+      }
+    });
+
+%div(ng-app="MyApp")
+  %script(type='text/ng-template' id='card_a.html')
+    .well
+      {{card.title}}
+
+  %script(type='text/ng-template' id='card_b.html')
+    .well(style="background: lightblue;")
+      {{card.score}}
+
+  %div(ng-controller="CardsController")
+    %h1 My Cards
+    %ul.list-inline
+      %li(ng-repeat="card in cards")
+        %div(ng-include src='content_template_for(card)')
+

@@ -28,7 +28,8 @@
 %div(ng-app="MyApp")
   %div(ng-controller="MoviesController")
     %h1 The movies
-    %ul(ng-repeat="movie in movies" ng-controller="MovieController")
-      {{movie.title}}
-      -
-      %rating(ng-model="movie.rating")
+    %ul
+      %li(ng-repeat="movie in movies" ng-controller="MovieController")
+        {{movie.title}}
+        -
+        %rating(ng-model="movie.rating")

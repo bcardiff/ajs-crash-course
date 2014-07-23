@@ -17,13 +17,15 @@
     %pre {{movies}}
 
     %h1 The movies
-    %ul(ng-repeat="movie in movies")
-      {{movie.title}}
-      -
-      %rating(ng-model="movie.rating")
+    %ul
+      %li(ng-repeat="movie in movies")
+        {{movie.title}}
+        -
+        %rating(ng-model="movie.rating")
 
     %h1 Top movies
-    %ul(ng-repeat="movie in movies | filter : { rating : 5 } | orderBy:'title'")
-      {{movie.title}}
-      -
-      %rating(ng-model="movie.rating")
+    %ul
+      %li(ng-repeat="movie in movies | filter : { rating : 5 } | orderBy:'title'")
+        {{movie.title}}
+        -
+        %rating(ng-model="movie.rating")
