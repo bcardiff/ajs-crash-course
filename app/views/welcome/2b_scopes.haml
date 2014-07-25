@@ -1,0 +1,26 @@
+:javascript
+  function CopyController($scope) {
+    $scope.title = 'My title';
+    $scope.foo = { bar : 'the bar' };
+  }
+
+  function ChildCtrl() {
+
+  }
+
+%div(ng-app)
+  %div(ng-controller="CopyController")
+    %input(type="text" ng-model="title")
+    %button Save
+    %p the save title is {{title}}
+
+    %input(type="text" ng-model="foo.bar")
+
+
+    %div(ng-controller="ChildCtrl")
+      %input(type="text" ng-model="title")
+      %input(type="text" ng-model="foo.bar")
+      {{title}} - {{foo.bar}}
+
+    %div(ng-controller="ChildCtrl")
+      {{title}} - {{foo.bar}}
